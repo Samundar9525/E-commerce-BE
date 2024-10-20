@@ -6,15 +6,6 @@ const fs = require('fs');
 const { google } = require('googleapis');
 const path = require('path');
 
-// const getAccessToken = async (code) => {
-//     const { tokens } = await oauth2Client.getToken(code);
-//     oauth2Client.setCredentials(tokens);
-//     fs.writeFileSync('token.json', JSON.stringify(tokens));
-//     console.log('Token stored to token.json');
-//   };
-
-//   const YOUR_AUTHORIZATION_CODE = '4/0AVG7fiTjb4NwtWnFGhPSDjLUYjs9dAwBF5QY7CMQJN1oa3KoV53NH0qnYcr-DVG5F3eVMg';
-//   getAccessToken(YOUR_AUTHORIZATION_CODE);
 
 const CLIENT_ID = "271825981459-trta5dnqurunmk2iarh8lp0a87chhoma.apps.googleusercontent.com";
 const CLIENT_SECRET = "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";
