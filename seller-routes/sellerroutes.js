@@ -7,9 +7,6 @@ const { google } = require('googleapis');
 const path = require('path');
 
 
-const CLIENT_ID = "271825981459-trta5dnqurunmk2iarh8lp0a87chhoma.apps.googleusercontent.com";
-const CLIENT_SECRET = "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";
-const REDIRECT_URI = 'http://localhost:4200';
 
 const oauth2Client = new google.auth.OAuth2(
     CLIENT_ID,
