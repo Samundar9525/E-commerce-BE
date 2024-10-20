@@ -9,6 +9,7 @@ const pool = new Pool({
     port: 5432,
 });
 pool.connect()
+
 /**
  * Creates a new record in the specified table.
  * @param {string} tableName - The name of the table.
@@ -18,11 +19,18 @@ pool.connect()
 async function createRecord(tableName, data) {
     const columns = Object.keys(data).join(', ');
     const values = Object.values(data);
+    console.log(columns,values  );
     const placeholders = values.map((_, index) => `$${index + 1}`).join(', ');
 
     const query = `INSERT INTO ${tableName} (${columns}) VALUES (${placeholders}) RETURNING *`;
-    const result = await pool.query(query, values);
-    return result.rows[0];
+    
+    try {
+        const result = await pool.query(query, values);
+        return result.rows[0];
+    } catch (err) {
+        console.error(`Error inserting data into ${tableName}:`, err);
+        throw err;
+    }
 }
 
 /**
@@ -43,7 +51,7 @@ async function readAllRecords(tableName, limit, offset) {
  * @param {number} id - The ID of the record to retrieve.
  * @returns {Promise<object>} - The retrieved record.
  */
-async function readRecordById(tableName, id) {
+async function getRecordById(tableName, id) {
     const query = `SELECT * FROM ${tableName} WHERE id = $1`;
     const result = await pool.query(query, [id]);
     if (result.rows.length === 0) {
@@ -90,7 +98,8 @@ async function deleteRecordById(tableName, id) {
 module.exports = {
     createRecord,
     readAllRecords,
-    readRecordById,
+    getRecordById,
     updateRecordById,
     deleteRecordById,
+    pool,
 };

@@ -7,6 +7,7 @@ function getAllProducts(tableName,limit,offset){
     return data;
 
 }
+
 router.get('/:tableName', async (req, res) => {
     const { tableName } = req.params;
     const limit = parseInt(req.query.limit) || 100;
@@ -19,6 +20,23 @@ router.get('/:tableName', async (req, res) => {
         res.json(data);
     } catch (error) {
         console.error('Error:', error);
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
+router.post('/:tableName', async (req, res) => {
+    const { tableName } = req.params;
+    const data = req.query.payload ? JSON.parse(req.query.payload) : req.body;
+
+    try {
+        const newRecord = await dbClient.createRecord(tableName, data);
+        res.status(201).json({
+            message: 'Record created successfully',
+            record: newRecord,
+        });
+    } catch (error) {
+        console.error('Error creating record:', error);
         res.status(500).json({ message: error.message });
     }
 });
