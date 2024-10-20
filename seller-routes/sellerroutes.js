@@ -72,7 +72,7 @@ router.post('/upload', upload.single('file'), async (req, res) => {
                 type: 'anyone',
             },
         });
-        const fileUrl = `https://drive.google.com/uc?id=${fileId}`;
+        const fileUrl = `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
         fs.unlinkSync(filePath);
         res.json({
             message: 'File uploaded successfully!',
@@ -142,7 +142,5 @@ router.get('/products', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
-
-
 
 module.exports = router;
